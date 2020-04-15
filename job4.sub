@@ -8,5 +8,6 @@ transfer_input_files    = ./part4.py, ./stratified_mc.py,  ./parameters.py
 transfer_output_files   = data/DA_4.pkl, data/error_4.pkl
 when_to_transfer_output = ON_EXIT
 +JobFlavour = "tomorrow"
-request_CPUs = 32
+request_CPUs = 1
+request_GPUs = 1
 queue
