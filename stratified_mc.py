@@ -36,7 +36,7 @@ class batcher(object):
             th2_data,
             self.dr,
             starting_step=starting_step)
-        engine.scan(self.scanning_list[0], self.scanning_list[-1])
+        engine.scan(self.scanning_list[0], self.scanning_list[-1], batch_size=batch_size)
         radiuses = engine.extract_DA(self.scanning_list)
 
         gathered_data = [

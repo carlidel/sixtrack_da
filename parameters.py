@@ -1,7 +1,7 @@
 import numpy as np
 
 min_turns = 100
-max_turns = 10000
+max_turns = 50000
 n_turn_samples = 100
 
 turn_sampling = np.linspace(min_turns, max_turns, n_turn_samples, dtype=np.int_)[::-1]
@@ -9,8 +9,10 @@ turn_sampling = np.linspace(min_turns, max_turns, n_turn_samples, dtype=np.int_)
 d_r = 1.0
 starting_step = 10 # USE IT CAREFULLY AS IT REQUIRES PRIOR KNOWLEDGE ON DA
 
+batch_size = 20000
+
 # BASELINE COMPUTING
-baseline_samples = 35
+baseline_samples = 33
 baseline_total_samples = baseline_samples ** 3
 
 # RADIAL AVERAGE COMPUTING
