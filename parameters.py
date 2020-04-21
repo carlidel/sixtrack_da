@@ -1,5 +1,7 @@
 import numpy as np
 
+savepath = "./"
+
 min_turns = 100
 max_turns = 50000
 n_turn_samples = 100
@@ -28,7 +30,3 @@ mc_samples = np.linspace(mc_min_samples, mc_max_samples, 1000, dtype=np.int)
 mcs_max_samples = 10 ** 4
 mcs_samples = np.linspace(0, mcs_max_samples, 11, dtype=np.int)[1:]
 mcs_n_sectors = 2
-
-# 2D SAMPLING
-
-alpha_max_samples = 2 ** 9 + 1
