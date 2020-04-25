@@ -1,6 +1,6 @@
 import numpy as np
 
-savepath = "./"
+savepath = "/afs/cern.ch/work/c/camontan/public/sixtrack_da/"
 
 min_turns = 100
 max_turns = 100000
