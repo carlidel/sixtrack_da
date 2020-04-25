@@ -5,7 +5,6 @@ error                   = err/job2.$(ClusterId).$(ProcId).err
 log                     = log/job2.$(ClusterId).log
 should_transfer_files   = YES
 transfer_input_files    = ./part2.py, ./stratified_mc.py,  ./parameters.py
-transfer_output_files   = data/DA_2.pkl, data/error_2.pkl
 when_to_transfer_output = ON_EXIT
 +JobFlavour = "tomorrow"
 request_GPUs = 1
