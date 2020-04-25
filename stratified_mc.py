@@ -167,7 +167,7 @@ class stratified_mc(object):
         for a in tqdm(range(self.n_sectors)):
             for b in range(self.n_sectors):
                 for c in range(self.n_sectors):
-                    alpha, th1, th2 = self.sectors[a][b][c].extract_coords(10)
+                    alpha, th1, th2 = self.sectors[a][b][c].extract_coords(3)
                     alpha_data += alpha
                     th1_data += th1
                     th2_data += th2
