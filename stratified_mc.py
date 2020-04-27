@@ -88,7 +88,7 @@ class sector(object):
                 self.data = np.concatenate((self.data, np.power(radiuses, 4)))
             self.average = np.average(self.data, axis=0)
             self.variance = np.std(self.data, axis=0) 
-
+            
     # def extract(self, n_extractions):
     #     extraction = self.noise_list[self.index : self.index + n_extractions, :]
     #     self.index += n_extractions
@@ -161,7 +161,7 @@ class stratified_mc(object):
         alpha_data = []
         th1_data = []
         th2_data = []
-        sample_list = np.ones(self.n_sectors ** 3, dtype=np.int) * 10
+        sample_list = np.ones(self.n_sectors ** 3, dtype=np.int) * 3
 
         print("...setup...")
         for a in tqdm(range(self.n_sectors)):
