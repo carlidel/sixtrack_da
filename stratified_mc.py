@@ -71,7 +71,7 @@ class sector(object):
 
         self.data = np.array([])
         self.average = np.nan
-        self.variance = np.nan
+        self.std = np.nan
 
     def extract_coords(self, n_extractions):
         extraction = self.noise_list[self.index: self.index + n_extractions, :]
@@ -87,7 +87,7 @@ class sector(object):
             else:
                 self.data = np.concatenate((self.data, np.power(radiuses, 4)))
             self.average = np.average(self.data, axis=0)
-            self.variance = np.std(self.data, axis=0) 
+            self.std = np.std(self.data, axis=0) 
             
     # def extract(self, n_extractions):
     #     extraction = self.noise_list[self.index : self.index + n_extractions, :]
@@ -105,13 +105,13 @@ class sector(object):
     #     else:
     #         self.data = np.concatenate((self.data, np.power(radiuses, 4)))
     #     self.average = np.average(self.data, axis=0)
-    #     self.variance = np.std(self.data, axis=0) 
+    #     self.std = np.std(self.data, axis=0) 
 
     def reset(self):
         self.index = 0
         self.data = np.array([[]])
         self.average = np.nan
-        self.variance = np.nan
+        self.std = np.nan
 
     def get_index(self):
         return self.index
@@ -119,11 +119,11 @@ class sector(object):
     def get_average(self):
         return self.average
 
-    def get_variance(self):
-        return self.variance
+    def get_std(self):
+        return self.std
     
-    def get_first_variance(self):
-        return self.variance[-1]
+    def get_first_std(self):
+        return self.std[-1]
 
 
 class stratified_mc(object):
@@ -153,7 +153,7 @@ class stratified_mc(object):
 
         self.p = np.ones((n_sectors, n_sectors, n_sectors))
         self.averages = np.zeros((n_sectors, n_sectors, n_sectors, len(scanning_list)))
-        self.variances = np.zeros((n_sectors, n_sectors, n_sectors, len(scanning_list)))
+        self.stds = np.zeros((n_sectors, n_sectors, n_sectors, len(scanning_list)))
         self.indices = np.zeros((n_sectors, n_sectors, n_sectors))
         
 
@@ -180,8 +180,8 @@ class stratified_mc(object):
             for b in range(self.n_sectors):
                 for c in range(self.n_sectors):
                     self.sectors[a][b][c].gather_data(gathered_data[a][b][c])
-                    self.p[a,b,c] = np.sqrt(self.sectors[a][b][c].get_first_variance())
-                    self.variances[a,b,c] = self.sectors[a][b][c].get_variance()
+                    self.p[a,b,c] = np.sqrt(self.sectors[a][b][c].get_first_std())
+                    self.stds[a,b,c] = self.sectors[a][b][c].get_std()
                     self.averages[a,b,c] = self.sectors[a][b][c].get_average()
                     self.indices[a,b,c] = self.sectors[a][b][c].get_index()
         
@@ -226,12 +226,12 @@ class stratified_mc(object):
                 for c in range(self.n_sectors):
                         self.sectors[a][b][c].gather_data(
                             gathered_data[a][b][c])
-                        self.p[a,b,c] = np.sqrt(self.sectors[a][b][c].get_first_variance())
-                        self.variances[a,b,c] = self.sectors[a][b][c].get_variance()
+                        self.p[a,b,c] = np.sqrt(self.sectors[a][b][c].get_first_std())
+                        self.stds[a,b,c] = self.sectors[a][b][c].get_std()
                         self.averages[a,b,c] = self.sectors[a][b][c].get_average()
                         self.indices[a,b,c] = self.sectors[a][b][c].get_index()
 
     def get_result(self):
         average = np.average(self.averages, axis=(0,1,2))
-        variance = np.sum(np.array([self.variances[:,:,:,i] / (4 * self.indices) for i in range(self.variances.shape[3])]), axis=(1,2,3))
-        return average, variance
+        std = np.sqrt(np.sum(np.array([np.power(self.stds[:,:,:,i], 2) / (4 * self.indices) for i in range(self.stds.shape[3])]), axis=(1,2,3)))
+        return average, std
