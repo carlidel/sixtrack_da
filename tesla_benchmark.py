@@ -12,13 +12,13 @@ import sixtrackwrap as sx
 
 import time
 
-savepath = "/afs/cern.ch/work/c/camontan/public/sixtrack_da/"
+savepath = "./"
 
 maximum_time = 1.5 * 60.0 * 60.0 # one and a half hour in seconds
 
 n_iterations = 50
-sample = 100
-step = 100
+sample = 10
+step = 10
 
 samples_in_batch = []
 raw_data1 = []
@@ -28,7 +28,7 @@ data2 = []
 
 begin_time = time.time()
 
-while (time.time() - begin_time < maximum_time):
+while (time.time() - begin_time < maximum_time) and sample < 5000:
     print("batch_size: ", sample)
     samples_in_batch.append(sample)
     
@@ -51,5 +51,5 @@ while (time.time() - begin_time < maximum_time):
     # Increase step
     sample += step
     
-with open(savepath + "tesla_benchmark.pkl", 'wb') as f:
+with open(savepath + "cpu_benchmark.pkl", 'wb') as f:
     pickle.dump((samples_in_batch, raw_data1, raw_data2, data1, data2), f, protocol=4)
