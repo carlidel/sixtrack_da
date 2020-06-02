@@ -13,4 +13,4 @@ which python
 mkdir data
 mkdir img
 
-python3 generate_radial_scan.py
+python3 generate_scan.py
